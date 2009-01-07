@@ -1,0 +1,174 @@
+NAME
+    Test::SFTP - An object to help test Net::SFTP
+
+SYNOPSIS
+        use Test::SFTP;
+
+        my $t_sftp = Test::SFTP->new(
+            host     => 'localhost',
+            user     => 'sawyer',
+            password => '2o7U!OYv' # created with genpass, obviously
+            ...
+        );
+
+        $t_sftp->can_get('file');
+
+        $t_sftp->can_copy('file', 'folder');
+
+DESCRIPTION
+    Unlike most testing frameworks, Test::SFTP provides an object oriented
+    interface. The reason is that it's simply easier to use an object than
+    throw everything as argument each time. Maybe in time, there will be
+    another interface that will accept connection arguments through global
+    package variables.
+
+    Test::SFTP uses Net::SFTP for the SFTP functions. This is actually a
+    testing framework for Net::SFTP.
+
+ATTRIBUTES
+    Basically there is almost complete corrolation with Net::SFTP
+    attributes, except for a few changes here and there.
+
+  host
+    The host you're connecting to.
+
+  user
+    Username you're connecting with.
+
+  password
+    Password for the username you're connecting with.
+
+  debug
+    Debugging flag for Net::SFTP. Haven't used it yet, don't know if it will
+    ever come in handy.
+
+  warn
+    Warning flag for Net::SFTP. Haven't used it yet, don't know if it will
+    ever come in handy.
+
+  ssh_args
+    SSH arguments, such as used in Net::SFTP. These are actually for
+    Net::SSH::Perl.
+
+  object
+    This holds the object of Net::SFTP. It's there to allow users more
+    fingergrained access to the object. With that, you can do:
+
+        is( $t_sftp->object->do_read( ... ), 'Specific test not covered in the framework' );
+
+  connected
+    A boolean attribute to note whether the Net::SFTP object is connected.
+
+    Most methods used need the object to be connected. This attribute is
+    used internally to check if it's not connected yet, and if it isn't, it
+    will run the connect method again in order to connect. This behavior can
+    be altered using the following attribute:
+
+  auto_connect
+    A boolean attribute to note whether we want to connect automatically in
+    case we're running a method that needs a connection but the object isn't
+    marked as connected (refer to the previous attribute).
+
+METHODS
+  connect
+    Once a Test::SCP object is created, it doesn't connect yet. You should
+    issue:
+
+        $t_sftp->connect
+
+    Then you could use the available testing methods described below.
+
+    If the auto_connect attribute (which is set by default) is on, it will
+    connect as soon as a testing method is used and it finds out it isn't
+    connected already.
+
+  can_connect
+    Checks whether we were able to connect to the machine. It basically runs
+    the connect method, but checks if it was successful.
+
+  cannot_connect
+    Checks whether we were NOT able to connect to the machine. Runs the
+    connect method adn checks if it unsuccessful.
+
+  is_status
+    Checks the status of Net::SFTP. It's the same as: is( $got,
+    Test::SFTP->object->status, 'testing the status returned by Net::SFTP)
+
+    This returns the entire string back. It joins both the error number and
+    the FX2TXT, joined by a space character.
+
+  is_status_number
+    Returns the status number, the first part of the whole status.
+
+  is_status_string
+    Many a times, the status that comes from Net::SFTP is actually an array
+    and the error string is the second cell. This method returns the second
+    cell in order to return the actual string of the error.
+
+    This returns the FX2TXT part of the status.
+
+  can_get
+    Checks whether we're able to get a file.
+
+  cannot_get
+    Checks whether we're unable to get a file.
+
+  can_put
+    Checks whether we're able to upload a file.
+
+  cannot_put
+    Checks whether we're unable to upload a file.
+
+  can_ls
+    Checks whether we're able to ls a folder or file. Can be used to check
+    the existence of files or folders.
+
+  cannot_ls
+    Checks whether we're unable to ls a folder or file. Can be used to check
+    the existence of files or folders.
+
+DEPENDENCIES
+    <http://search.cpan.org/perldoc?Moose>
+
+    <http://search.cpan.org/perldoc?Net::SFTP>
+
+    <http://search.cpan.org/perldoc?Test::More>
+
+AUTHOR
+    Sawyer X, "<xsawyerx at cpan.org>"
+
+BUGS
+    Please report any bugs or feature requests to "bug-test-sftp at
+    rt.cpan.org", or through the web interface at
+    <http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Test-SFTP>. I will be
+    notified, and then you'll automatically be notified of progress on your
+    bug as I make changes.
+
+SUPPORT
+    You can find documentation for this module with the perldoc command.
+
+        perldoc Test::SFTP
+
+    You can also look for information at:
+
+    * RT: CPAN's request tracker
+        <http://rt.cpan.org/NoAuth/Bugs.html?Dist=Test-SFTP>
+
+    * AnnoCPAN: Annotated CPAN documentation
+        <http://annocpan.org/dist/Test-SFTP>
+
+    * CPAN Ratings
+        <http://cpanratings.perl.org/d/Test-SFTP>
+
+    * Search CPAN
+        <http://search.cpan.org/dist/Test-SFTP/>
+
+ACKNOWLEDGEMENTS
+    Dave Rolsky and David Robins for maintaining Net::SFTP.
+
+COPYRIGHT & LICENSE
+    Copyright 2009 Sawyer X, all rights reserved.
+
+    This program is free software; you can redistribute it and/or modify it
+    under the same terms as Perl itself.
+

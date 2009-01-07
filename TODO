@@ -1,0 +1,9 @@
+- Fix a timeout attribute
+- Put File::Util thing on possible skip
+- Add testing for can_get and cannot_get using $remote_path as well
+- Add an SSH server to be able to test the module in a more controlled manner
+- Check if we're uploading a file to where it really is right now, if so - prevent it
+- Consider patching Net::SSH::Perl to pass taint mode so Test::SFTP's testing suite could include taint mode
+- Separate dangerous tests from all the rest
+- Make the POD a little more readable (Net::SFTP as an example how to write method usage)
+- Add alarm to the connection and "timeout" attribute for it
