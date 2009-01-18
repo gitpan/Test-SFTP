@@ -1,5 +1,19 @@
 Revision history for Test::SFTP
 
+0.02    18.01.08
+        - Rewrote large parts of the POD.
+        - Uses better types with Moose ('Bool', 'Object')
+        - Added timeout attribute.
+        - Added timeout option for Net::SFTP connection.
+        - Added testing for timeout attribute using Test::Timer
+        - Checking attributes in connect() to avoid uninitialized variables
+        - Put timeout attribute as optionally tested if Test::Timer exists
+        - Time::Timer marked as recommended in Build.PL
+        - The tests that use File::Util are now optionally skipped if it doesn't exist
+        - Added File::Util to recommends
+        - Separated all the dangerous tests from the the others, changed the ENV
+        - Some tested were improved, using eval{}
+
 0.01    07.01.08
         First version. I couldn't be prouder.
 

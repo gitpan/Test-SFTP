@@ -6,7 +6,6 @@ WriteMakefile
           'VERSION_FROM' => 'lib/Test/SFTP.pm',
           'PREREQ_PM' => {
                            'English' => '1.02',
-                           'File::Util' => '3.27',
                            'IO::Prompt' => '0.99.4',
                            'Moose' => '0.63',
                            'Net::SFTP' => '0.1',

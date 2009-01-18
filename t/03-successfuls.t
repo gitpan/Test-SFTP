@@ -3,11 +3,11 @@
 # dammit
 
 # we're testing if we can connect
-use Test::More tests => 16;
+use English '-no_match_vars';
+use Test::More tests => 14;
 use Test::SFTP;
 use IO::Prompt;
 use File::Util;
-use English '-no_match_vars';
 
 use strict;
 use warnings;
@@ -22,31 +22,26 @@ my ( $password, $test, $prompt );
 my ( $full_status, $status_number, $status_string );
 
 SKIP: {
-    skip "you didn't specifically asked to test with TEST_SFTP_RUN_TEST", 16
-        unless $ENV{'TEST_SFTP_RUN_TEST'};
-
-    if ( !$ENV{'TEST_SFTP_SKIP_EXP'} ) {
-        eval {
-            local $SIG{'ALRM'} = sub {
-                die "input failed\n";
-            };
-
-            alarm $timeout;
-
-            print STDERR "\nI need your help for some tests.\n"
-                       . "Enter 'q' to quit the tests, "
-                       . "or wait $timeout seconds for me to just continue without testing\n"
-                       . "You can press [enter] if you want to "
-                       . "help me with this and test the test module\n";
-            $test = prompt 'So? ';
-            chomp $test;
-
-            alarm 0;
+    eval {
+        local $SIG{'ALRM'} = sub {
+            die "input failed\n";
         };
 
-        if ( $EVAL_ERROR eq "input failed\n" || $test eq 'q' ) {
-            skip "Alright, nevermind...\n", 16;
-        }
+        alarm $timeout;
+
+        print STDERR "\nI need your help for some tests.\n"
+                   . "Enter 'q' to quit the tests, "
+                   . "or wait $timeout seconds for me to just continue without testing\n"
+                   . "You can press [enter] if you want to "
+                   . "help me with this and test the test module\n";
+        $test = prompt 'So? ';
+        chomp $test;
+
+        alarm 0;
+    };
+
+    if ( $EVAL_ERROR eq "input failed\n" || $test eq 'q' ) {
+        skip "Alright, nevermind...\n", 16;
     }
 
     $prompt = prompt "SSH/SFTP host to test [$host]: ";
@@ -60,14 +55,10 @@ SKIP: {
 
     my $sftp = Test::SFTP->new(
         host     => $host,
-        user     => 'Sir lancelot',
+        user     => $username,
         password => $password->{'value'},
+        timeout  => 2,
     );
-
-    $sftp->cannot_connect('cannot connect to SFTP');
-    is( $sftp->connected, 0, 'we are really not connected' );
-
-    $sftp->user($username);
 
     $sftp->can_connect('can connect to SFTP');
     is( $sftp->connected, 1, 'we are really connected' );
@@ -80,14 +71,42 @@ SKIP: {
     $sftp->is_status_string( $status_string, 'Checking SFTP no error status string' );
 
     srand;
+
+    SKIP: {
+        if ( $ENV{'TEST_SFTP_DANG'} ) {
+            skip "Dangerous tests only tests if TEST_SFTP_DANG is set", 2;
+        }
+
+        eval { require File::Util; };
+
+        if ($EVAL_ERROR) {
+            skip 'Missing File::Util', 2;
+        }
+
+        use File::Util;
+        my $random_file = rand 99999;
+
+        my $file_util = File::Util->new;
+        $file_util->touch($random_file);
+
+        $sftp->can_put( $random_file, $random_file, 'Trying to upload to good location' );
+        $sftp->can_get( $random_file, 'Trying to get a file' );
+
+        # this is dangerous, we need to finish some stuff before allowing people to run all these tests
+        $sftp->object->do_remove( $random_file );
+
+        # we do not need this file anymore
+        # TODO: if in the process of getting a file we overwritten that file, we will be accidently removing it
+        # so we need to check if it is so
+        unlink $random_file;
+    };
+
     my $random_file = rand 99999;
     my $bad_path    = "/$random_file";
 
-    my $file_util = File::Util->new;
-    $file_util->touch($random_file);
-
-    $sftp->can_put( $random_file, $random_file, 'Trying to upload to good location' );
-    $sftp->can_get( $random_file, 'Trying to get a file' );
+    # TODO: OS portability
+    $sftp->can_ls( '/', 'Trying to do ls'   );
+    $sftp->cannot_ls( $bad_path, 'Trying to fail ls' );
 
     $sftp->cannot_put( $random_file, $bad_path, 'Trying to upload to bad location'  );
     $sftp->cannot_get( $bad_path, 'Trying to get a nonexistent file' );
@@ -99,17 +118,5 @@ SKIP: {
     $sftp->is_status_number( $status_number, 'Checking nonexistent path SFTP status number' );
     $sftp->is_status_string( $status_string, 'Checking nonexistent path SFTP status string' );
 
-    # this is dangerous, we need to finish some stuff before allowing people to run all these tests
-    # TODO: separate this test from the others, so the others can be run without this test
-    $sftp->object->do_remove( $random_file );
-
-    # we do not need this file anymore
-    # TODO: if in the process of getting a file we overwritten that file, we will be accidently removing it
-    # so we need to check if it is so
-    unlink $random_file;
-
-    # TODO: OS portability
-    $sftp->can_ls( '/', 'Trying to do ls'   );
-    $sftp->cannot_ls( $bad_path, 'Trying to fail ls' );
 }
 
