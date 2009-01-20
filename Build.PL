@@ -7,6 +7,7 @@ my $builder = Module::Build->new(
     license             => 'perl',
     dist_author         => 'Sawyer X <xsawyerx@cpan.org>',
     dist_version_from   => 'lib/Test/SFTP.pm',
+    dist_abstract       => 'An object to help test Net::SFTP',
 
     requires => {
         'Test::More'  => 0.78,

@@ -8,18 +8,16 @@ use strict;
 use warnings;
 
 SKIP: {
-    eval { require Test::Timer; };
+    eval 'use Test::Timer';
 
     if ($EVAL_ERROR) {
         skip 'Test::Timer not installed', 1;
     }
 
-    use Test::Timer;
-
     my $SPACE    = q{ };
     my $EMPTY    = q{};
     my $timeout  = 3;
-    my $host     = '1.2.3.4';
+    my $host     = '1.2.3.4'; # lets hope no one uses it by accident
     my $username = 'user';
     my $password = 'pass';
 

@@ -1,5 +1,13 @@
 Revision history for Test::SFTP
 
+0.03    20.01.08
+        - in t/01-timeout.t:    finally fixed eval for Test::Timer
+        - in t/03-successful.t: finally fixed eval for File::Util
+        - in t/03-successful.t: changed no. of skipped tests in first SKIP to 14
+        - in t/03-successful.t: removed File::Util from the top "use" group
+        - added "use warnings" (even though we're already using Moose) to gain more Kwalitee.
+        - added to dist_abstract to Build.PL
+
 0.02    18.01.08
         - Rewrote large parts of the POD.
         - Uses better types with Moose ('Bool', 'Object')

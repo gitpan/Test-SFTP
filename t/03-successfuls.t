@@ -7,7 +7,6 @@ use English '-no_match_vars';
 use Test::More tests => 14;
 use Test::SFTP;
 use IO::Prompt;
-use File::Util;
 
 use strict;
 use warnings;
@@ -41,7 +40,7 @@ SKIP: {
     };
 
     if ( $EVAL_ERROR eq "input failed\n" || $test eq 'q' ) {
-        skip "Alright, nevermind...\n", 16;
+        skip "Alright, nevermind...\n", 14;
     }
 
     $prompt = prompt "SSH/SFTP host to test [$host]: ";
@@ -77,13 +76,12 @@ SKIP: {
             skip "Dangerous tests only tests if TEST_SFTP_DANG is set", 2;
         }
 
-        eval { require File::Util; };
+        eval 'use File::Util';
 
         if ($EVAL_ERROR) {
             skip 'Missing File::Util', 2;
         }
 
-        use File::Util;
         my $random_file = rand 99999;
 
         my $file_util = File::Util->new;

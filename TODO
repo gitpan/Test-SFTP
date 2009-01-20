@@ -8,6 +8,7 @@ Organized according to how soon I think I will implement these.
     - Provide "examples/" folder.
     - Check kwalitee issues
     - Check on functions that need the object is the object exists, fail automatically if it doesn't, with proper diag()
+    - After running prove -Ilib t/03-successfuls, the prompt is still caught.
 
 * Not any time soon, if at all:
     - Add tests for every possible connection success or fail (wrong host, missing attributes, timeout, etc.)

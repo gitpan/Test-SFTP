@@ -1,11 +1,13 @@
 package Test::SFTP;
 
+use warnings;
+
 use Moose;
 use English '-no_match_vars';
 use Net::SFTP;
 use Test::More;
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 # variables for the connection
 has 'host'     => ( is => 'rw', isa => 'Str' );
