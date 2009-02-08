@@ -1,6 +1,6 @@
 ---
 name: Test-SFTP
-version: 0.03
+version: 0.04
 author:
   - 'Sawyer X <xsawyerx@cpan.org>'
 abstract: An object to help test Net::SFTP
@@ -21,7 +21,7 @@ recommends:
 provides:
   Test::SFTP:
     file: lib/Test/SFTP.pm
-    version: 0.03
+    version: 0.04
 generated_by: Module::Build version 0.3
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.2.html

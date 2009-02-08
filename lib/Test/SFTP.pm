@@ -7,7 +7,7 @@ use English '-no_match_vars';
 use Net::SFTP;
 use Test::More;
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 # variables for the connection
 has 'host'     => ( is => 'rw', isa => 'Str' );
@@ -193,7 +193,7 @@ I<Test::SFTP> - An object to help test Net::SFTP
 
 =head1 VERSION
 
-This describes I<Test::SFTP> 0.02.
+This describes I<Test::SFTP> 0.04.
 
 =head1 DESCRIPTION
 

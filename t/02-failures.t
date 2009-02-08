@@ -9,6 +9,9 @@ use Test::SFTP;
 use strict;
 use warnings;
 
+my $EMPTY    = q{};
+$ENV{'HOME'} = $EMPTY;
+
 my $sftp = Test::SFTP->new(
     host     => '1.2.3.4',
     user     => 'Sir lancelot',
