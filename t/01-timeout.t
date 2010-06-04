@@ -14,8 +14,6 @@ SKIP: {
         skip 'Test::Timer not installed', 1;
     }
 
-    my $SPACE    = q{ };
-    my $EMPTY    = q{};
     my $timeout  = 3;
     my $host     = '1.2.3.4'; # lets hope no one uses it by accident
     my $username = 'user';
@@ -23,13 +21,12 @@ SKIP: {
 
     time_between( sub {
         Test::SFTP->new(
-            host     => $host,
-            user     => $username,
-            password => $password,
-            timeout  => $timeout,
-        )->connect },
+            host    => $host,
+            timeout => $timeout,
+        ) },
+
         $timeout,
-        $timeout + 3,
+        $timeout * 2,
         'Timeout is working',
     );
 };

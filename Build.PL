@@ -1,3 +1,4 @@
+use 5.006;
 use strict;
 use warnings;
 use Module::Build;
@@ -5,29 +6,31 @@ use Module::Build;
 my $builder = Module::Build->new(
     module_name         => 'Test::SFTP',
     license             => 'perl',
-    dist_author         => 'Sawyer X <xsawyerx@cpan.org>',
+    dist_author         => q{Sawyer X <xsawyerx@cpan.org>},
     dist_version_from   => 'lib/Test/SFTP.pm',
-    dist_abstract       => 'An object to help test Net::SFTP',
+    build_requires => {
+        'Test::More'         => 0,
+        'English'            => 1.02,
+        'Term::ReadLine'     => 0,
+        'Term::ReadPassword' => 0,
+    },
 
     requires => {
-        'Test::More'  => 0.78,
-        'Moose'       => 0.63,
-        'Net::SFTP'   => 0.10,
-    },
-
-    build_requires => {
-        'Test::More'  => 0.78,
-        'IO::Prompt'  => '0.99.4',
-        'English'     => 1.02,
-    },
-
-    recommends => {
-        'Test::Timer' => 0.05,
-        'File::Util'  => 3.27,
+        'Carp'                 => 0,
+        'perl'                 => 5.006,
+        'Moose'                => 0.63,
+        'Expect'               => 0,
+        'IO::Pty'              => 0,
+        'parent'               => 0,
+        'Test::Builder'        => 0,
+        'Net::SFTP::Foreign'   => 0,
+        'namespace::autoclean' => 0,
     },
 
     add_to_cleanup     => [ 'Test-SFTP-*' ],
     create_makefile_pl => 'traditional',
+    create_license     => 1,
+    create_readme      => 1,
 );
 
 $builder->create_build_script();
