@@ -12,7 +12,7 @@ use namespace::autoclean;
 
 use parent 'Test::Builder::Module';
 
-our $VERSION = '1.05';
+our $VERSION = '1.06';
 
 # variables for the connection
 has 'host'     => ( is => 'ro', isa => 'Str', required => 1 );
@@ -20,6 +20,7 @@ has 'user'     => ( is => 'ro', isa => 'Str'                );
 has 'password' => ( is => 'ro', isa => 'Str'                );
 
 has 'debug'    => ( is => 'ro', isa => 'Int', default => 0  );
+has 'port'     => ( is => 'ro', isa => 'Int'                );
 has 'timeout'  => ( is => 'ro', isa => 'Int'                );
 has 'more'     => ( is => 'ro', isa => 'ArrayRef'           );
 
@@ -183,7 +184,7 @@ Test::SFTP - An object to help test SFTPs
 
 =head1 VERSION
 
-This describes Test::SFTP 1.05.
+This describes Test::SFTP 1.06.
 
 =head1 DESCRIPTION
 
@@ -223,6 +224,10 @@ Password for the username you're connecting with.
 
 If you do not specify this explicitly, it will try other connection methods
 such as SSH keys.
+
+=head2 port
+
+Port you're connecting to.
 
 =head2 debug
 
@@ -345,7 +350,8 @@ Sawyer X, C<< <xsawyerx at cpan.org> >>
 
 =head1 DIAGNOSTICS
 
-You can use the B<object> attribute to access the I<Net::SFTP> object directly.
+You can use the B<object> attribute to access the I<Net::SFTP::Foreign> object
+directly.
 
 =head1 CONFIGURATION AND ENVIRONMENT
 
@@ -364,13 +370,13 @@ TEST_SFTP_DANG.
 
 =head1 INCOMPATIBILITIES
 
-This module should be incompatible with taint (-T), because it use I<Net::SFTP>
-that utilizes I<Net::SSH::Perl> that does not pass tainted mode.
+L<Net::SFTP::Foreign> does not support Windows. If you're using Windows, you
+have bigger problems. :)
 
 =head1 BUGS AND LIMITATIONS
 
-This module will have the same limitations that exist for I<Net::SFTP>. Perhaps
-more.
+This module will have the same limitations that exist for
+I<Net::SFTP::Foreign>. Perhaps more.
 
 Please report any bugs or feature requests to C<bug-test-sftp at rt.cpan.org>,
 or through the web interface at
