@@ -1,36 +1,49 @@
-use 5.006;
+
 use strict;
 use warnings;
-use Module::Build;
 
-my $builder = Module::Build->new(
-    module_name         => 'Test::SFTP',
-    license             => 'perl',
-    dist_author         => q{Sawyer X <xsawyerx@cpan.org>},
-    dist_version_from   => 'lib/Test/SFTP.pm',
-    build_requires => {
-        'Test::More'         => 0,
-        'English'            => 1.02,
-        'Term::ReadLine'     => 0,
-        'Term::ReadPassword' => 0,
-    },
+use Module::Build 0.3601;
 
-    requires => {
-        'Carp'                 => 0,
-        'perl'                 => 5.006,
-        'Moose'                => 0.63,
-        'Expect'               => 0,
-        'IO::Pty'              => 0,
-        'parent'               => 0,
-        'Test::Builder'        => 0,
-        'Net::SFTP::Foreign'   => 0,
-        'namespace::autoclean' => 0,
-    },
 
-    add_to_cleanup     => [ 'Test-SFTP-*' ],
-    create_makefile_pl => 'traditional',
-    create_license     => 1,
-    create_readme      => 1,
+my %module_build_args = (
+  "build_requires" => {
+    "File::Find" => 0,
+    "File::Temp" => 0,
+    "Module::Build" => "0.3601",
+    "Term::ReadLine" => 0,
+    "Term::ReadPassword" => 0,
+    "Test::More" => 0
+  },
+  "configure_requires" => {
+    "ExtUtils::MakeMaker" => "6.30",
+    "Module::Build" => "0.3601"
+  },
+  "dist_abstract" => "An object to help test SFTPs",
+  "dist_author" => [
+    "Sawyer X <xsawyerx\@cpan.org>"
+  ],
+  "dist_name" => "Test-SFTP",
+  "dist_version" => "1.09",
+  "license" => "perl",
+  "module_name" => "Test::SFTP",
+  "recommends" => {},
+  "recursive_test_files" => 1,
+  "requires" => {
+    "Carp" => 0,
+    "English" => 0,
+    "Moose" => 0,
+    "Net::SFTP::Foreign" => 0,
+    "Test::Builder" => 0,
+    "Test::Builder::Module" => 0,
+    "namespace::autoclean" => 0,
+    "parent" => 0,
+    "strict" => 0,
+    "warnings" => 0
+  },
+  "script_files" => []
 );
 
-$builder->create_build_script();
+
+my $build = Module::Build->new(%module_build_args);
+
+$build->create_build_script;

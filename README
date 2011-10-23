@@ -1,6 +1,9 @@
 NAME
     Test::SFTP - An object to help test SFTPs
 
+VERSION
+    version 1.09
+
 SYNOPSIS
         use Test::SFTP;
 
@@ -18,9 +21,6 @@ SYNOPSIS
             $remote_path,
             "Trying to copy $local_path to $remote_path",
         );
-
-VERSION
-    This describes Test::SFTP 1.08.
 
 DESCRIPTION
     Unlike most testing frameworks, *Test::SFTP* provides an object oriented
@@ -153,9 +153,6 @@ DEPENDENCIES
 
     parent
 
-AUTHOR
-    Sawyer X, "<xsawyerx at cpan.org>"
-
 DIAGNOSTICS
     You can use the object attribute to access the *Net::SFTP::Foreign*
     object directly.
@@ -221,9 +218,12 @@ ACKNOWLEDGEMENTS
     Salvador Fandi√±o Garc√a for Net::SFTP::Foreign, Net::OpenSSH, being a
     responsive dedicated author and a really nice guy! :)
 
-LICENSE AND COPYRIGHT
-    Copyright 2009-2010 Sawyer X, all rights reserved.
+AUTHOR
+    Sawyer X <xsawyerx@cpan.org>
 
-    This program is free software; you can redistribute it and/or modify it
-    under the same terms as Perl itself.
+COPYRIGHT AND LICENSE
+    This software is copyright (c) 2011 by Sawyer X.
+
+    This is free software; you can redistribute it and/or modify it under
+    the same terms as the Perl 5 programming language system itself.
 

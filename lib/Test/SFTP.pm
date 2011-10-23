@@ -1,7 +1,10 @@
-package Test::SFTP;
-
 use strict;
 use warnings;
+package Test::SFTP;
+{
+  $Test::SFTP::VERSION = '1.09';
+}
+# ABSTRACT: An object to help test SFTPs
 
 use Carp;
 use Moose;
@@ -11,8 +14,6 @@ use Net::SFTP::Foreign;
 use namespace::autoclean;
 
 use parent 'Test::Builder::Module';
-
-our $VERSION = '1.08';
 
 # variables for the connection
 has 'host'     => ( is => 'ro', isa => 'Str', required => 1 );
@@ -157,11 +158,17 @@ no Moose;
 
 1;
 
-__END__
+
+
+=pod
 
 =head1 NAME
 
 Test::SFTP - An object to help test SFTPs
+
+=head1 VERSION
+
+version 1.09
 
 =head1 SYNOPSIS
 
@@ -182,16 +189,11 @@ Test::SFTP - An object to help test SFTPs
         "Trying to copy $local_path to $remote_path",
     );
 
-=head1 VERSION
-
-This describes Test::SFTP 1.08.
-
 =head1 DESCRIPTION
 
 Unlike most testing frameworks, I<Test::SFTP> provides an object oriented
 interface. The reason is that it's simply easier to use an object than throw the
 login information as command arguments each time.
-
 
 =head1 ATTRIBUTES
 
@@ -344,10 +346,6 @@ L<namespace::autoclean>
 
 L<parent>
 
-=head1 AUTHOR
-
-Sawyer X, C<< <xsawyerx at cpan.org> >>
-
 =head1 DIAGNOSTICS
 
 You can use the B<object> attribute to access the I<Net::SFTP::Foreign> object
@@ -420,10 +418,19 @@ L<http://search.cpan.org/dist/Test-SFTP/>
 Salvador Fandiño García for L<Net::SFTP::Foreign>, L<Net::OpenSSH>, being a
 responsive dedicated author and a really nice guy! :)
 
-=head1 LICENSE AND COPYRIGHT
+=head1 AUTHOR
 
-Copyright 2009-2010 Sawyer X, all rights reserved.
+Sawyer X <xsawyerx@cpan.org>
 
-This program is free software; you can redistribute it and/or modify it
-under the same terms as Perl itself.
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2011 by Sawyer X.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
+=cut
+
+
+__END__
 
