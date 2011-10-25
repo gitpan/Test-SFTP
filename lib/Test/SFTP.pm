@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Test::SFTP;
 {
-  $Test::SFTP::VERSION = '1.09';
+  $Test::SFTP::VERSION = '1.10';
 }
 # ABSTRACT: An object to help test SFTPs
 
@@ -168,7 +168,7 @@ Test::SFTP - An object to help test SFTPs
 
 =head1 VERSION
 
-version 1.09
+version 1.10
 
 =head1 SYNOPSIS
 

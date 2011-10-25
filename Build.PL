@@ -23,7 +23,7 @@ my %module_build_args = (
     "Sawyer X <xsawyerx\@cpan.org>"
   ],
   "dist_name" => "Test-SFTP",
-  "dist_version" => "1.09",
+  "dist_version" => "1.10",
   "license" => "perl",
   "module_name" => "Test::SFTP",
   "recommends" => {},

@@ -2,7 +2,7 @@ NAME
     Test::SFTP - An object to help test SFTPs
 
 VERSION
-    version 1.09
+    version 1.10
 
 SYNOPSIS
         use Test::SFTP;
